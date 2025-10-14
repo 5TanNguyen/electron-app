@@ -53,41 +53,40 @@ function Header() {
           </button>
 
           <div className="hidden lg:flex lg:items-center lg:mx-auto lg:space-x-10">
-            <a
-              href="#"
-              title=""
-              className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600"
+            <Link
+              to="/"
+              className="text-xl font-bold text-black h-[100px] w-[100px] flex flex-col justify-center items-center gap-2"
             >
-              {' '}
-              Features{' '}
-            </a>
+              <small>Home</small>
+            </Link>
 
-            <a
-              href="#"
-              title=""
-              className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600"
+            <Link
+              to="/hello"
+              className="text-xl font-bold text-black h-[100px] w-[100px] flex flex-col justify-center items-center gap-2"
             >
-              {' '}
-              Solutions{' '}
-            </a>
-
+              <small>Expense</small>
+              {/* Chi tiêu */}
+            </Link>
             <a
-              href="#"
-              title=""
-              className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600"
+              className="text-xl font-bold text-black h-[100px] w-[100px] flex flex-col justify-center items-center gap-2"
+              href=""
             >
-              {' '}
-              Resources{' '}
+              <small>Me</small>
             </a>
-
             <a
-              href="#"
-              title=""
-              className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600"
+              className="text-xl font-bold text-black h-[100px] w-[100px] flex flex-col justify-center items-center gap-2"
+              href=""
             >
-              {' '}
-              Pricing{' '}
+              <small>Todo</small>
+              {/* Việc cần làm */}
             </a>
+            <Link
+              to="/calendar"
+              className="text-xl font-bold text-black h-[100px] w-[100px] flex flex-col justify-center items-center gap-2"
+            >
+              <small>Calendar</small>
+              {/* Lịch */}
+            </Link>
           </div>
 
           <a

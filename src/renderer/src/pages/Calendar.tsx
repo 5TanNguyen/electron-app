@@ -7,26 +7,21 @@ import { Box } from '@mui/material'
 import { Toolbar } from './Toolbar'
 import { CalendarApi } from '@fullcalendar/core'
 
+type Todo = {
+  id: number
+  title: string
+  start: string
+  completed: boolean
+}
+
 function Calendar() {
-  let eventGuid = 0
-  let todayStr = new Date().toISOString().replace(/T.*$/, '') // YYYY-MM-DD of today
-
-  const INITIAL_EVENTS = [
-    {
-      id: createEventId(),
-      title: 'All-day event',
-      start: todayStr
-    },
-    {
-      id: createEventId(),
-      title: 'Timed event',
-      start: todayStr + 'T12:00:00'
-    }
-  ]
-
-  function createEventId() {
-    return String(eventGuid++)
-  }
+  const [todos, setTodos] = React.useState<Todo[]>([
+    { id: 1, title: 'Dọn dẹp bàn làm việc', start: '2025-10-13', completed: false },
+    { id: 2, title: 'Viết báo cáo tuần', start: '2025-10-13T09:00:00', completed: true },
+    { id: 3, title: 'Tập thể dục buổi sáng', start: '2025-10-13T06:00:00', completed: false },
+    { id: 4, title: 'Gọi điện cho khách hàng', start: '2025-10-13T14:00:00', completed: false },
+    { id: 5, title: 'Đọc sách Đắc Nhân Tâm', start: '2025-10-13T21:00:00', completed: true }
+  ])
 
   const [state, setState] = React.useState({
     weekendsVisible: true,
@@ -35,7 +30,7 @@ function Calendar() {
 
   // const calendarRef: React.RefObject<FullCalendar> = React.useRef()
   const calendarRef = React.useRef<FullCalendar | null>(null)
-  let calendarApi: CalendarApi| undefined = calendarRef?.current?.getApi()
+  let calendarApi: CalendarApi | undefined = calendarRef?.current?.getApi()
 
   const handleDateSelect = (selectInfo) => {
     let title = prompt('Please enter a new title for your event')
@@ -45,7 +40,7 @@ function Calendar() {
 
     if (title) {
       calendarApi.addEvent({
-        id: createEventId(),
+        id: String(Date.now()),
         title,
         start: selectInfo.startStr,
         end: selectInfo.endStr,
@@ -60,9 +55,22 @@ function Calendar() {
     }
   }
 
-  const handleEvents = (events) => {
-    setState({ ...state, currentEvents: events })
-  }
+  const events = React.useMemo(
+    () =>
+      todos.map((todo) => ({
+        ...todo,
+        id: String(todo.id)
+      })),
+    [todos]
+  )
+
+  const handleEvents = React.useCallback((events) => {
+    setState((prev) => ({ ...prev, currentEvents: events }))
+  }, [])
+
+  React.useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos))
+  }, [todos])
 
   return (
     <div className="demo-app">
@@ -82,7 +90,7 @@ function Calendar() {
           selectMirror={true}
           dayMaxEvents={true}
           weekends={state.weekendsVisible}
-          initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+          events={events}
           select={handleDateSelect}
           eventContent={renderEventContent} // custom render function
           eventClick={handleEventClick}
