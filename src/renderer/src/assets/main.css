@@ -1,2 +1,13 @@
 @import "tailwindcss";
 
+
+/* Overwrite màu của FullCalendar */
+.css-f5yfbg {
+  background-color: #4b69c1 !important; /* Màu xanh của anh */
+  color: #fff !important;               /* Chữ trắng */
+  padding: 5px;
+  width: 100%;
+  margin-left: 3px;
+  margin-right: 8px;
+  border-radius: 4px;
+}
