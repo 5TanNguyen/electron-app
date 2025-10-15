@@ -8,11 +8,18 @@ import { Toolbar } from './Toolbar'
 import { CalendarApi } from '@fullcalendar/core'
 import axios from 'axios'
 import Notiflix from 'notiflix'
+import { IoMdClose } from 'react-icons/io'
+import { motion, AnimatePresence } from 'framer-motion'
+import { MdContentPasteGo } from 'react-icons/md'
+import { BiArrowFromRight, BiArrowFromLeft } from 'react-icons/bi'
+import { BsCalendar2Date } from 'react-icons/bs'
+import { FaRegBookmark } from 'react-icons/fa'
 
 type Todo = {
   id: number
   title: string
   start: string
+  end: string
   completed: boolean
 }
 
@@ -20,6 +27,8 @@ function Calendar() {
   const [todos, setTodos] = React.useState<Todo[]>(
     localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos') || '') : []
   )
+  const [isOpen, setIsOpen] = React.useState(false)
+  const [todoDetail, setTodoDetail] = React.useState<Todo | null>(null)
 
   const [state, setState] = React.useState({
     weekendsVisible: true
@@ -47,6 +56,7 @@ function Calendar() {
         id: Date.now(),
         title: title,
         start: selectInfo.startStr,
+        end: selectInfo.endStr,
         completed: false
       }
 
@@ -88,9 +98,23 @@ function Calendar() {
   }
 
   const handleEventClick = (clickInfo) => {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove()
-    }
+    setIsOpen(!isOpen)
+
+    console.log('clickInfo', clickInfo.event)
+
+    // const startTime = clickInfo.event.startStr.split('T')[1]?.slice(0, 8) || ''
+    // const endTime = clickInfo.event.endStr?.split('T')[1]?.slice(0, 8) || ''
+
+    setTodoDetail({
+      id: Number(clickInfo.event.id),
+      title: clickInfo.event.title,
+      start: clickInfo.event.startStr,
+      end: clickInfo.event.endStr,
+      completed: false
+    })
+    // if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+    //   clickInfo.event.remove()
+    // }
   }
 
   const events = React.useMemo(
@@ -149,9 +173,9 @@ function Calendar() {
   }
 
   return (
-    <div className="demo-app">
+    <div className="div-fullcalendar w-3/4 mx-auto mt-10">
       <Toolbar calendarApi={calendarApi} />
-      <div className="demo-app-main">
+      <div className="div-fullcalendar-main">
         <FullCalendar
           ref={calendarRef}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -178,6 +202,51 @@ function Calendar() {
           */
         />
       </div>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+            className="dklt-main fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] bg-white border border-gray-300 rounded-lg shadow-lg p-4 z-50"
+          >
+            <div className="flex items-center justify-between w-full px-3 mb-4 py-2 border-b border-gray-300">
+              <h2 className="text-2xl font-medium">Thông tin đăng ký tăng ca</h2>
+              <button className="dklt-close" onClick={() => setIsOpen(false)}>
+                <IoMdClose />
+              </button>
+            </div>
+            <div className="dklt-body px-3 h-[250px]">
+              <span className="flex items-center mb-2.5">
+                <FaRegBookmark className="w-[30px] text-xl me-2" />
+                {todoDetail?.title}
+              </span>
+              <span className="flex items-center mb-2.5">
+                <BsCalendar2Date className="w-[30px] text-xl me-2" />
+                {todoDetail?.start.split('T')[0].split('-').reverse().join('/') || ''}
+              </span>
+              <span className="flex items-center mb-2.5">
+                <BiArrowFromLeft className="w-[30px] text-xl me-2" />
+                {todoDetail?.start.split('T')[1]?.slice(0, 8) || ''}
+              </span>
+              <span className="flex items-center mb-2.5">
+                <BiArrowFromRight className="w-[30px] text-xl me-2" />
+                {todoDetail?.end.split('T')[1]?.slice(0, 8) || ''}
+              </span>
+            </div>
+            <div className="dklt-footer px-3 mt-4 flex justify-end gap-2">
+              <button
+                className="dklt-btn dklt-btn-primary p-2 rounded-sm bg-cyan-500  border-cyan-500 text-white"
+                onClick={() => setIsOpen(false)}
+              >
+                Xác nhận
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
