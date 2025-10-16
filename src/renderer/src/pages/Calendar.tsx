@@ -8,12 +8,12 @@ import { Toolbar } from './Toolbar'
 import { CalendarApi } from '@fullcalendar/core'
 import axios from 'axios'
 import Notiflix from 'notiflix'
-import { IoMdClose } from 'react-icons/io'
+import { IoMdClose, IoIosCloseCircle, IoMdCloseCircle } from 'react-icons/io'
 import { motion, AnimatePresence } from 'framer-motion'
-import { MdContentPasteGo } from 'react-icons/md'
 import { BiArrowFromRight, BiArrowFromLeft } from 'react-icons/bi'
 import { BsCalendar2Date } from 'react-icons/bs'
-import { FaRegBookmark } from 'react-icons/fa'
+import { FaRegBookmark, FaCheckCircle } from 'react-icons/fa'
+import { FaRegCircleQuestion } from 'react-icons/fa6'
 
 type Todo = {
   id: number
@@ -210,13 +210,33 @@ function Calendar() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            className="dklt-main fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] bg-white border border-gray-300 rounded-lg shadow-lg p-4 z-50"
+            className="dklt-main fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] bg-white border border-gray-300 rounded-lg shadow-lg p-4 z-50"
           >
             <div className="flex items-center justify-between w-full px-3 mb-4 py-2 border-b border-gray-300">
               <h2 className="text-2xl font-medium">Thông tin đăng ký tăng ca</h2>
               <button className="dklt-close" onClick={() => setIsOpen(false)}>
                 <IoMdClose />
               </button>
+            </div>
+
+            <div className="w-full bg-amber-50 height-[100px] flex items-center justify-center gap-14 relative">
+              <div className="flex flex-col items-center">
+                <span>Đăng ký</span>
+                <FaCheckCircle className="text-xl text-green-500 bg-white z-50 border-radius-full border-yellow-500" />
+              </div>
+
+              <div className="flex flex-col items-center">
+                <span>Lãnh đạo</span>
+                <FaRegCircleQuestion className="text-xl text-yellow-500 bg-white z-50 border-radius-full border-yellow-500" />
+              </div>
+
+              <div className="flex flex-col items-center">
+                <span>TCHC</span>
+                <IoMdCloseCircle className="text-2xl text-red-500 bg-white z-50 border-radius-full border-yellow-500" />
+              </div>
+            </div>
+            <div className="w-full bg-amber-50 height-[100px] flex items-center justify-center gap-14 relative">
+              <div className="absolute w-[240px] h-[3px] bg-amber-800 mb-6 ms-3 z-0"></div>
             </div>
             <div className="dklt-body px-3 h-[250px]">
               <span className="flex items-center mb-2.5">
