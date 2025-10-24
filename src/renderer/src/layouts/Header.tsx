@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 
 function Header() {
   return (
-    <header className="pb-6 bg-white lg:pb-0">
+    <header className="bg-white">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <nav className="flex items-center justify-between h-16 lg:h-20">
           <div className="flex-shrink-0">
@@ -69,7 +69,7 @@ function Header() {
             </Link>
             <a
               className="text-xl font-bold text-black h-[100px] w-[100px] flex flex-col justify-center items-center gap-2"
-              href=""
+              href="/toi"
             >
               <small>Me</small>
             </a>

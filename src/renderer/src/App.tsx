@@ -3,6 +3,7 @@ import MainLayout from './layouts/MainLayout'
 
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import Calendar from './pages/Calendar'
+import Me from './pages/Me'
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,14 @@ const router = createBrowserRouter([
     element: (
       <MainLayout>
         <Calendar />
+      </MainLayout>
+    )
+  },
+  {
+    path: '/toi',
+    element: (
+      <MainLayout>
+        <Me />
       </MainLayout>
     )
   }

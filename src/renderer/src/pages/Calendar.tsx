@@ -238,7 +238,7 @@ function Calendar() {
             <div className="w-full bg-amber-50 height-[100px] flex items-center justify-center gap-14 relative">
               <div className="absolute w-[240px] h-[3px] bg-amber-800 mb-6 ms-3 z-0"></div>
             </div>
-            <div className="dklt-body px-3 h-[250px]">
+            <div className="dklt-body px-3 h-[250px] mt-5">
               <span className="flex items-center mb-2.5">
                 <FaRegBookmark className="w-[30px] text-xl me-2" />
                 {todoDetail?.title}
@@ -255,6 +255,23 @@ function Calendar() {
                 <BiArrowFromRight className="w-[30px] text-xl me-2" />
                 {todoDetail?.end.split('T')[1]?.slice(0, 8) || ''}
               </span>
+
+              <div className="w-full bg-amber-50 height-[100px] flex items-center justify-center gap-14 relative">
+                <div className="flex flex-col items-center">
+                  <span>Đăng ký</span>
+                  <FaCheckCircle className="text-xl text-green-500 bg-white z-50 border-radius-full border-yellow-500" />
+                </div>
+
+                <div className="flex flex-col items-center">
+                  <span>Lãnh đạo</span>
+                  <FaRegCircleQuestion className="text-xl text-yellow-500 bg-white z-50 border-radius-full border-yellow-500" />
+                </div>
+
+                <div className="flex flex-col items-center">
+                  <span>TCHC</span>
+                  <IoMdCloseCircle className="text-2xl text-red-500 bg-white z-50 border-radius-full border-yellow-500" />
+                </div>
+              </div>
             </div>
             <div className="dklt-footer px-3 mt-4 flex justify-end gap-2">
               <button
