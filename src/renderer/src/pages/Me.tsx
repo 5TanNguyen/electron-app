@@ -1,14 +1,26 @@
-import { CiUser, CiHome, CiAlignBottom, CiCalendar } from 'react-icons/ci'
 import { MdEdit } from 'react-icons/md'
+import { AiFillSignal } from 'react-icons/ai'
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
+import * as React from 'react'
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules'
 
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import 'swiper/css/scrollbar'
 function Me() {
+  const [isOpenModal, setIsOpenModal] = React.useState(false)
+
   return (
-    <div className="w-full bg-blue-100 h-[calc(100vh-120px)] flex justify-center">
+    <div className="w-full h-[calc(100vh-120px)] flex justify-center">
       <div
         className="
       relative
       w-full lg:w-[65%] 
-      h-[420px] bg-blue-200 "
+      h-[420px]"
       >
         <img
           className="z-100 w-full h-[420px]"
@@ -61,26 +73,65 @@ function Me() {
                 h-[100px] py-2
             "
           >
-            <div className="flex flex-row gap-2
+            <div
+              className="flex flex-row gap-2
              justify-center
-             lg:justify-end">
+             lg:justify-end"
+            >
               <button
                 type="button"
-                className="bg-blue-500 rounded-md py-1 px-2 flex flex-row items-center text-white font-bold"
+                className="bg-blue-500 rounded-md py-1 px-2 flex flex-row items-center text-white font-bold h-[36px]"
               >
-                <MdEdit className="me-1" />
+                <AiFillSignal className="me-1" />
                 Công cụ chuyên nghiệp
               </button>
 
               <button
                 type="button"
-                className="bg-gray-400 rounded-md py-1 px-2 flex flex-row items-center text-white font-bold"
+                className="bg-gray-400 rounded-md py-1 px-2 flex flex-row items-center text-white font-bold h-[36px]"
               >
                 <MdEdit className="me-1" />
                 Chỉnh sửa
               </button>
+
+              <button
+                type="button"
+                className="bg-gray-400 rounded-md py-1 px-2 flex flex-row items-center text-white font-bold h-[36px]"
+                onClick={() => setIsOpenModal(!isOpenModal)}
+              >
+                {isOpenModal ? <IoIosArrowUp /> : <IoIosArrowDown />}
+              </button>
             </div>
           </div>
+        </div>
+
+        <div
+          className={`mt-[160px] lg:mt-[0px] h-[150px] bg-blue-300 w-full transition-all duration-500 overflow-hidden ${isOpenModal ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+        >
+          <div className="w-full h-[150px]">
+            <Swiper
+              modules={[Navigation, Pagination, Scrollbar, A11y]}
+              spaceBetween={50}
+              slidesPerView={3}
+              navigation
+              pagination={{ clickable: true }}
+              scrollbar={{ draggable: true }}
+              observer={true}
+              observeParents={true}
+            >
+              <SwiperSlide>Slide 1</SwiperSlide>
+              <SwiperSlide>Slide 2</SwiperSlide>
+              <SwiperSlide>Slide 3</SwiperSlide>
+              <SwiperSlide>Slide 4</SwiperSlide>
+              ...
+            </Swiper>
+          </div>
+        </div>
+
+        <div
+          className={`h-[150px] mt-2 bg-red-300 w-full transition-all duration-500 overflow-hidden max-h-96 opacity-100`}
+        >
+          <div className="w-full"></div>
         </div>
       </div>
     </div>

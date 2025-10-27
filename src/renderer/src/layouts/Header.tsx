@@ -96,7 +96,7 @@ function Header() {
             role="button"
           >
             {' '}
-            Get started now{' '}
+            GO{' '}
           </a>
         </nav>
 
